@@ -8,6 +8,8 @@ import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 
+
+
 /**
  * 
  * @author gongzhihao
@@ -97,8 +99,11 @@ public class NIOClient {
 
 	// 客户端测试
 	public static void main(String[] args) throws IOException {
-		NIOClient nioClient = new NIOClient();
-		nioClient.initClient("127.0.0.1", 8000);
-		nioClient.listen();
+		for (int i = 0; i < 500; i++) { //使用多线程 模拟多个客户端同时请求服务器
+			Thread thread = new Thread(new Task1());
+			thread.start();
+		}
+		
+		
 	}
 }

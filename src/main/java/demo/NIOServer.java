@@ -2,6 +2,7 @@ package demo;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
@@ -58,8 +59,13 @@ public class NIOServer {
 				// 客户端请求连接事件
 				if (key.isAcceptable()) {
 					ServerSocketChannel server = (ServerSocketChannel) key.channel();
+					//System.out.println(server.getLocalAddress());
 					// 获得和客户端连接的通道
 					SocketChannel channel = server.accept();
+					//System.out.println(channel.getLocalAddress());
+					Socket socket = channel.socket();
+					//System.out.println(socket.getInetAddress().getHostAddress() + socket.getPort() + socket.getLocalAddress() + socket.getLocalPort());
+					System.out.println(socket.getInetAddress().getHostAddress() + "," + socket.getPort());
 					// 设置成非阻塞
 					channel.configureBlocking(false);
 					// 在这里可以给客户端发送信息
